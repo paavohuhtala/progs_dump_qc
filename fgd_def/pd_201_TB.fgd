@@ -2849,3 +2849,41 @@ sounds(choices) : "Sound style" : 0 =
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
+
+@SolidClass base(Angle, Appearflags, Targetname, Target) = func_door_secret2 : "Secret door, improved."
+[
+	dmg(integer) : "Damage when blocked" : 2
+	move_wait(float) : "The wait between moves" : 0
+  speed(float) : "Movement speed" : 50
+	sounds(choices) : "Sounds" : 3 =
+	[
+		1: "Medieval"
+		2: "Metal"
+		3: "Base"
+	]
+  move_1_dir(choices) : "Direction of first move" : 0 = [
+    0: "Inwards"
+    1: "Outwards"
+    2: "Left"
+    3: "Right"
+    4: "Up"
+    5: "Down"
+  ]
+  move_1_len(float) : "Length of first move (or -1 to move full length)" : -1
+  move_2_dir(choices) : "Direction of second move" : 0 = [
+    0: "Inwards"
+    1: "Outwards"
+    2: "Left"
+    3: "Right"
+    4: "Up"
+    5: "Down"
+  ]
+  move_2_len(float) : "Length of second move (or -1 to move full length)" : -1
+	message(string) : "Message"
+	spawnflags(flags) =
+	[
+		1 : "Open once" : 0
+		8 : "Not shootable" : 0
+		16 : "Always shootable" : 0
+	]
+]

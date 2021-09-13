@@ -1,4 +1,5 @@
-../progs.dat
+C:/Misc/quakespasm/hoqwarts/progs.dat
+// bin/progs.dat
 
 defs.qc //added fields, see comments for details
 newflags.qc //new spawnflags for all entities
@@ -18,6 +19,7 @@ player.qc
 monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
 keylock.qc //common code for entities which can be unlocked with keys
 doors.qc
+door_secret2.qc // Secret Door 2.0 by paavohtl
 buttons.qc
 triggers.qc //added trigger_push_custom based on Hipnotic
 plats.qc
