@@ -2887,3 +2887,21 @@ sounds(choices) : "Sound style" : 0 =
 		16 : "Always shootable" : 0
 	]
 ]
+
+@PointClass size(-16 -16 0, 16 16 32) color(27 45 247) base(Appearflags, Targetname) = hoqwarts_flipendo_dest : "A destination for a flipendo block."
+[
+	group(string): "Name of Flipendo group"
+	spawnflags(flags) =
+	[
+		1 : "+X" : 0
+		2 : "-X" : 0
+		4 : "+Y" : 0
+		8 : "-Y" : 0
+	]
+]
+
+@SolidClass base(Appearflags, Targetname, Target) = hoqwarts_func_flipendo : "A destination for a flipendo block."
+[
+	group(string): "Name of Flipendo group"
+	initial_dest(target_destination): "Initial destination of the cube."
+]

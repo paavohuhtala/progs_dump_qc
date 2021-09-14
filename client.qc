@@ -83,7 +83,7 @@ void() SetNewParms =
 	}
 	else
 	{
-		parm1 = IT_AXE | IT_SHOTGUN;  // self.items
+		parm1 = IT_HOQWARTS_WAND | IT_SHOTGUN;  // self.items
 		parm4 = 25;                   // self.ammo_shells
 		parm8 = IT_SHOTGUN;           // self.weapon
 	}

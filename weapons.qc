@@ -175,6 +175,8 @@ void() W_Precache =
 	precache_sound ("shambler/smack.wav");
 
 	// dumptruck_ds mobot.qc END
+
+	precache_sound("spell/s_spell_hit1.wav");
 };
 
 float() crandom =
@@ -425,6 +427,51 @@ void() W_FireShotgun =
 	self.currentammo = self.ammo_shells = self.ammo_shells - 1;
 	dir = aim (self, 100000);
 	FireBullets (6, dir, '0.04 0.04 0');
+};
+
+void() W_FireHoqwartsWand =
+{
+	self.effects = self.effects | EF_MUZZLEFLASH;
+	local vector dir;
+
+	sound(self, CHAN_WEAPON, "spell/s_spell_hit1.wav", 1, ATTN_NORM);
+
+	self.punchangle_x = -1;
+
+	dir = aim (self, 100000);
+
+	local	vector src;
+
+	makevectors(self.v_angle);
+
+	src = self.origin + v_forward*10;
+	src_z = self.absmin_z + self.size_z * 0.7;
+
+	ClearMultiDamage();
+
+	traceline(src, src + dir*2048, FALSE, self);
+
+	if (trace_ent.classname == "hoqwarts_flipendo_cube") {
+		local vector normal = trace_plane_normal;
+
+		if (normal_z != 0) {
+			dprint("Hit flipendo cube on top/bottom face -> NOP\n");
+			return;
+		}
+
+		particle(trace_endpos, 1, 192, 16);
+
+		te_lightning2(self, src, trace_endpos);
+
+		hoqwarts_flipendo_cast(trace_ent, normal);
+	}
+	else {
+		if (trace_fraction != 1.0) {
+			TraceAttack(4, dir);
+		}
+	
+		ApplyMultiDamage();
+	}
 };
 
 
@@ -1135,6 +1182,13 @@ void() W_SetCurrentAmmo =
 		self.weaponmodel = "progs/v_axe.mdl";
 		self.weaponframe = 0;
 	}
+	else if (self.weapon == IT_HOQWARTS_WAND)
+	{
+		self.currentammo = 1;
+		self.weaponmodel = "progs/v_axe.mdl";
+		self.weaponframe = 0;
+		self.items = self.items | IT_HOQWARTS_WAND;
+	}
 	else if (self.weapon == IT_SHOTGUN)
 	{
 		self.currentammo = self.ammo_shells;
@@ -1208,7 +1262,7 @@ float() W_BestWeapon =
 		return IT_NAILGUN;
 	if(self.ammo_shells >= 1 && (it & IT_SHOTGUN) )
 		return IT_SHOTGUN;
-	return IT_AXE;
+	return IT_HOQWARTS_WAND;
 };
 
 float() W_CheckNoAmmo =
@@ -1267,6 +1321,11 @@ void() W_Attack =
 			player_axed1 ();
 		self.attack_finished = time + 0.5;
 	}
+	else if (self.weapon == IT_HOQWARTS_WAND) {
+		player_shot1();
+		W_FireHoqwartsWand();
+		self.attack_finished = time + 0.7;
+	}
 	else if (self.weapon == IT_SHOTGUN)
 	{
 		player_shot1 ();
@@ -1322,7 +1381,7 @@ void() W_ChangeWeapon =
 
 	if (self.impulse == 1)
 	{
-		fl = IT_AXE;
+		fl = IT_HOQWARTS_WAND;
 	}
 	else if (self.impulse == 2)
 	{
@@ -1446,9 +1505,9 @@ void() CycleWeaponCommand =
 
 		if (self.weapon == IT_LIGHTNING)
 		{
-			self.weapon = IT_AXE;
+			self.weapon = IT_HOQWARTS_WAND;
 		}
-		else if (self.weapon == IT_AXE)
+		else if (self.weapon == IT_HOQWARTS_WAND)
 		{
 			self.weapon = IT_SHOTGUN;
 			if (self.ammo_shells < 1)
@@ -1556,9 +1615,9 @@ void() CycleWeaponReverseCommand =
 		}
 		else if (self.weapon == IT_SHOTGUN)
 		{
-			self.weapon = IT_AXE;
+			self.weapon = IT_HOQWARTS_WAND;
 		}
-		else if (self.weapon == IT_AXE)
+		else if (self.weapon == IT_HOQWARTS_WAND)
 		{
 			self.weapon = IT_LIGHTNING;
 			if (self.ammo_cells < 1)

@@ -44,7 +44,7 @@ walkmove(angle, speed) primitive is all or nothing
 entity	sight_entity;
 float	sight_entity_time;
 
-float(float v) anglemod =
+float(float v) ai_anglemod =
 {
 	while (v >= 360)
 		v = v - 360;
@@ -231,7 +231,7 @@ void() ChangeYaw =
 
 //current_yaw = self.ideal_yaw;
 // mod down the current angle
-	current_yaw = anglemod( self.angles_y );
+	current_yaw = ai_anglemod( self.angles_y );
 	ideal = self.ideal_yaw;
 
 	if (current_yaw == ideal)
@@ -260,7 +260,7 @@ void() ChangeYaw =
 			move = 0-self.yaw_speed;
 	}
 
-	current_yaw = anglemod (current_yaw + move);
+	current_yaw = ai_anglemod (current_yaw + move);
 
 	self.angles_y = current_yaw;
 };
@@ -469,7 +469,7 @@ void(float dist) ai_pain =
 /*
 	local float	away;
 
-	away = anglemod (vectoyaw (self.origin - self.enemy.origin)
+	away = ai_anglemod (vectoyaw (self.origin - self.enemy.origin)
 	+ 180*(random()- 0.5) );
 
 	walkmove (away, dist);
@@ -592,7 +592,7 @@ float() FacingIdeal =
 {
 	local	float	delta;
 
-	delta = anglemod(self.angles_y - self.ideal_yaw);
+	delta = ai_anglemod(self.angles_y - self.ideal_yaw);
 	if (delta > 45 && delta < 315)
 		return FALSE;
 	return TRUE;

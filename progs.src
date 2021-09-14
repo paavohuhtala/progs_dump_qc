@@ -13,6 +13,9 @@ ai.qc
 combat.qc
 keydata.qc //functions which deal with key item bitflags and names
 items.qc
+
+flipendo.qc
+
 weapons.qc
 world.qc
 client.qc
