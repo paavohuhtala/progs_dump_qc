@@ -4,6 +4,8 @@ C:/Misc/quakespasm/hoqwarts/progs.dat
 defs.qc //added fields, see comments for details
 newflags.qc //new spawnflags for all entities
 subs.qc //modified targets, triggers and killtargets
+fteextensions.qc
+qsextensions.qc
 fight.qc
 customsounds.qc //mapper-settable custom sound effects for monsters - iw
 custom_mdls.qc //mapper-settable custom models for monsters - iw

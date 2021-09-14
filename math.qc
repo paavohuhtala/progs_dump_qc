@@ -37,21 +37,6 @@ float(float value, float minValue, float maxValue) clamp = {
 };
 
 /*
- * mod
- *
- * Returns the remainder after the division of a by n
- *
- * a: The dividend
- *
- * b: The divisor
- *
- * Returns: The remainder of a divided by n
- */
-float(float a, float n) mod = {
-    return a - (n * floor(a / n));
-};
-
-/*
  * sign
  *
  * Returns an indication of the sign of the given number.

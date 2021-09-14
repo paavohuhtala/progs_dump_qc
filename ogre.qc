@@ -246,29 +246,6 @@ float pgrav = 800;
 //a default angle to fire at if the enemy is too far away
 float OGRE_DEFAULT_ELEVATION = 30;
 
-//uses QuakeC builtins to calculate tan of angle
-//WARNING: uses makevectors! This overwrites the v_forward... globals
-float(float theta) tan =
-{
-  local vector ang; //temporary used to calculate trig values
-  ang = '0 0 0';
-  ang_y = theta; //assign theta to the yaw to simplify reasoning
-  makevectors(ang);
-  return v_forward_y / v_forward_x;
-}
-
-//inverse tan function
-//takes two parameters, numerator and denominator
-//this copes better with denominator 0 and gets quadrant correct
-float(float y, float x) atan2 =
-{
-  local vector ang; //temporary used to calculate trig values
-  ang = '0 0 0';
-  ang_x = x;
-  ang_y = y;
-  return vectoyaw(ang);
-}
-
 float(float theta, vector dest) IterateElevation =
 {
   local float a, b, c; //constants in the equation to be solved
