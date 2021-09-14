@@ -421,6 +421,7 @@ void() think_mobot =
 			if (nearby.takedamage)
 			{
 				dprint("monster waiting to spawn\n");
+				self.think = think_mobot;
 				self.nextthink = time + 1; //delay the spawn by some amount;
 				return;
 			}
