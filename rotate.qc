@@ -968,7 +968,7 @@ void() rotate_object =
       return;
 
    self.classname = "rotate_object";
-   self.solid = SOLID_NOT;
+   self.solid = SOLID_BSP;
    self.movetype = MOVETYPE_NONE;
    setmodel (self,self.model);
    setsize( self, self.mins, self.maxs );
