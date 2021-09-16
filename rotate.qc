@@ -1170,41 +1170,33 @@ void() func_rotate_door = // added slinet option - sounds 4 -- dumptruck_ds
       self.dmg = 0;
       }
 
-   if (self.sounds == 0)
-      self.sounds = 1;
-	if (self.sounds == 1)
-	{
-		precache_sound ("doors/latch2.wav");
-		precache_sound ("doors/winch2.wav");
-		precache_sound ("doors/drclos4.wav");
-		self.noise1 = "doors/latch2.wav";
-		self.noise2 = "doors/winch2.wav";
-		self.noise3 = "doors/drclos4.wav";
-	}
-	if (self.sounds == 2)
-	{
-		precache_sound ("doors/airdoor1.wav");
-		precache_sound ("doors/airdoor2.wav");
-		self.noise2 = "doors/airdoor1.wav";
-		self.noise1 = "doors/airdoor2.wav";
-		self.noise3 = "doors/airdoor2.wav";
-	}
-	if (self.sounds == 3)
-	{
-		precache_sound ("doors/basesec1.wav");
-		precache_sound ("doors/basesec2.wav");
-		self.noise2 = "doors/basesec1.wav";
-		self.noise1 = "doors/basesec2.wav";
-		self.noise3 = "doors/basesec2.wav";
-	}
-  if (self.sounds == 4)
-  {
-    precache_sound ("misc/null.wav");
-    precache_sound ("misc/null.wav");
-    self.noise2 = "misc/null.wav";
-    self.noise1 = "misc/null.wav";
-    self.noise3 = "misc/null.wav";
-  }
+   switch (self.sounds) {
+      default:
+      case 1:
+         self.noise1 = "doors/latch2.wav";
+         self.noise2 = "doors/winch2.wav";
+         self.noise3 = "doors/drclos4.wav";
+         break;
+      case 2:
+         self.noise1 = "doors/airdoor2.wav";
+         self.noise2 = "doors/airdoor1.wav";
+         self.noise3 = "doors/airdoor2.wav";
+         break;
+      case 3:
+         self.noise1 = "doors/basesec2.wav";
+         self.noise2 = "doors/basesec1.wav";
+         self.noise3 = "doors/basesec2.wav";
+         break;
+      case 4:
+         self.noise1 = "misc/null.wav";
+         self.noise2 = "misc/null.wav";
+         self.noise3 = "misc/null.wav";
+         break;
+   }
+
+   precache_sound(self.noise1);
+   precache_sound(self.noise2);
+   precache_sound(self.noise3);
 
    self.solid = SOLID_NOT;
    self.movetype = MOVETYPE_NONE;
