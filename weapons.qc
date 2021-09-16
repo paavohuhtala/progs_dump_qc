@@ -432,38 +432,33 @@ void() W_FireShotgun =
 void() W_FireHoqwartsWand =
 {
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	local vector dir;
 
-	sound(self, CHAN_WEAPON, "spell/s_spell_hit1.wav", 1, ATTN_NORM);
+	sound(self, CHAN_WEAPON, "spell/s_spell_hit1.wav", 0.3, ATTN_NORM);
 
 	self.punchangle_x = -1;
 
-	dir = aim (self, 100000);
-
-	local	vector src;
-
+	vector dir = aim(self, 100000);
 	makevectors(self.v_angle);
-
-	src = self.origin + v_forward*10;
+	vector src = self.origin + v_forward * 10;
 	src_z = self.absmin_z + self.size_z * 0.7;
 
 	ClearMultiDamage();
 
 	traceline(src, src + dir*2048, FALSE, self);
 
-	if (trace_ent.classname == "hoqwarts_flipendo_cube") {
-		local vector normal = trace_plane_normal;
+	if (trace_ent.flipendo) {
+		entity old_self = self;
+		self = trace_ent;
+		FlipendoResult result = self.flipendo(trace_plane_normal);
+		self = old_self;
 
-		if (normal_z != 0) {
-			dprint("Hit flipendo cube on top/bottom face -> NOP\n");
-			return;
+		if (result == FlipendoResult::Success) {
+			particle(trace_endpos, '1 1 1', 192, 16);
+			te_lightning2(self, src, trace_endpos);
 		}
-
-		particle(trace_endpos, 1, 192, 16);
-
-		te_lightning2(self, src, trace_endpos);
-
-		hoqwarts_flipendo_cast(trace_ent, normal);
+		else {
+				// TODO play fail sound
+		}
 	}
 	else {
 		if (trace_fraction != 1.0) {
