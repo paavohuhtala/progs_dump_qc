@@ -2906,3 +2906,13 @@ sounds(choices) : "Sound style" : 0 =
 		1 : "Rotate around X (default Y)": 0
 	]
 ]
+
+@PointClass
+	size(-16 -16 0, 16 16 32)
+	color(240 10 30)
+	base(Appearflags)
+	model({"path": "progs/bean.mdl"})
+	= hoqwarts_item_bean : "A bean."
+[
+
+]

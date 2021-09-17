@@ -15,6 +15,7 @@ items.qc
 
 hoqwarts/flipendo.qc
 hoqwarts/door_secret2.qc
+hoqwarts/bean.qc
 
 weapons.qc
 world.qc
