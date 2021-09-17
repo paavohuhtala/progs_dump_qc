@@ -28,6 +28,8 @@ void () hoqwarts_flipendo_dest = {
   }
 
   self.classname = "hoqwarts_flipendo_dest";
+  self.solid = SOLID_TRIGGER;
+  setorigin(self, self.origin);
 };
 
 void () hoqwarts_flipendo_after_move = { 
@@ -61,17 +63,19 @@ FlipendoResult (vector normal) hoqwarts_flipendo_cube_cast = {
     return FlipendoResult::Success;
   }
 
-  entity dest = find(world, classname, "hoqwarts_flipendo_dest");
-
+  // The other origin is always within 2*t_width of current origin
+  // (it's actually even closer because Pythagoras theorem but we don't care)
+  entity dest = findradius(self.origin, self.t_width * 2);
+  
   while (dest) {
-    if (dest.origin == target_pos) {
+    if (dest.classname == "hoqwarts_flipendo_dest" && dest.origin == target_pos) {
       self.cube_moving = TRUE;
       self.current_dest = dest;
       SUB_CalcMove(dest.origin, 150, hoqwarts_flipendo_after_move);
       return FlipendoResult::Success;
     }
 
-    dest = find(dest, classname, "hoqwarts_flipendo_dest");
+    dest = dest.chain;
   }
   return FlipendoResult::Success;
 };
