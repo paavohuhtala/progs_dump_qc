@@ -2,6 +2,8 @@
 entity	s;
 
 
+string FOUND_SECRET_SOUND = "player/Found_Secret_Music.wav";
+
 void() trigger_reactivate =
 {
 	self.solid = SOLID_TRIGGER;
@@ -153,18 +155,19 @@ void() trigger_multiple =
 
 	if (self.sounds == 1)
 	{
-		precache_sound ("misc/secret.wav");
-		self.noise = "misc/secret.wav";
+		self.noise = FOUND_SECRET_SOUND;
 	}
 	else if (self.sounds == 2)
 	{
-		precache_sound ("misc/talk.wav");
 		self.noise = "misc/talk.wav";
 	}
 	else if (self.sounds == 3)
 	{
-		precache_sound ("misc/trigger1.wav");
 		self.noise = "misc/trigger1.wav";
+	}
+
+	if (self.noise) {
+		precache_sound(self.noise);
 	}
 
 	if (!self.wait)
@@ -252,8 +255,8 @@ void() trigger_secret =
 
 	if (self.sounds == 1)
 	{
-		precache_sound ("misc/secret.wav");
-		self.noise = "misc/secret.wav";
+		precache_sound (FOUND_SECRET_SOUND);
+		self.noise = FOUND_SECRET_SOUND;
 	}
 	else if (self.sounds == 2)
 	{
@@ -1326,8 +1329,8 @@ void() trigger_look =
     }
     else if (self.sounds == 1)
     {
-        precache_sound ("misc/secret.wav");
-        self.noise = "misc/secret.wav";
+        precache_sound (FOUND_SECRET_SOUND);
+        self.noise = FOUND_SECRET_SOUND;
     }
     else if (self.sounds == 2)
     {
