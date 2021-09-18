@@ -6,6 +6,8 @@ float START_OFF		= 1;
 float FADE_IN_OUT	= 2;
 float SILENT_TORCH = 4; // for silent torch -- dumptruck_ds
 
+string TORCH_MODEL_EXTINGUISHED = "progs/torch_extinguished.mdl";
+
 /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 Used as a positional target for spotlights, etc.
@@ -215,11 +217,18 @@ void() light_use =
 	}
 	else
 	{
+		if (self.classname == "light_torch_small_walltorch") {
+			setmodel(self, TORCH_MODEL_EXTINGUISHED);
+			setorigin(self, self.origin);
+		}
+
 		self.spawnflags = self.spawnflags + START_OFF;
-		if (self.spawnflags & FADE_IN_OUT && !self.style2)
+		if (self.spawnflags & FADE_IN_OUT && !self.style2) {
 			light_fade_out();
-		else
+		}
+		else {
 			lightstyle(self.style, "a");
+		}
 	}
 };
 
@@ -423,16 +432,23 @@ See the "light" entity for a full description.
 */
 void() light_torch_small_walltorch =
 {
-	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+	// new spawnflags for all entities -- iw
+	if (SUB_Inhibit()) {
 		return;
+	}
 
-	// precache_model("progs/flame.mdl");
-	precache_body_model("progs/flame.mdl");
-	// setmodel(self, "progs/flame.mdl");
-	body_model("progs/flame.mdl");
-	if !(self.spawnflags && SILENT_TORCH) // for silent torch -- dumptruck_ds
-	FireAmbient ();
-	makestatic(self);
+	// self.classname = "light_torch_small_walltorch";
+
+	precache_model("progs/flame.mdl");
+	precache_model(TORCH_MODEL_EXTINGUISHED);
+	setmodel(self, "progs/flame.mdl");
+
+	// for silent torch -- dumptruck_ds
+	if !(self.spawnflags & SILENT_TORCH) {
+		FireAmbient();
+	}
+
+	self.use = light_use;
 };
 
 /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
