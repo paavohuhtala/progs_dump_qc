@@ -13,8 +13,11 @@ combat.qc
 keydata.qc //functions which deal with key item bitflags and names
 items.qc
 
-hoqwarts/flipendo.qc
 hoqwarts/door_secret2.qc
+hoqwarts/flipendo.qc
+hoqwarts/flipendo_dest.qc
+hoqwarts/flipendo_cube.qc
+hoqwarts/flipendo_switch.qc
 hoqwarts/bean.qc
 
 weapons.qc

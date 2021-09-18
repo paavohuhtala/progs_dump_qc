@@ -2888,12 +2888,16 @@ sounds(choices) : "Sound style" : 0 =
 	]
 ]
 
-@PointClass size(-16 -16 0, 16 16 32) color(27 45 247) base(Appearflags, Targetname) = hoqwarts_flipendo_dest : "A destination for a flipendo block."
+@PointClass size(-16 -16 0, 16 16 32) color(27 45 247) base(Appearflags, Targetname, Target) = hoqwarts_flipendo_dest : "A destination for a flipendo block."
 [
-
+	spawnflags(flags) =
+	[
+		1: "Trap cube?" : 0
+	]
+	depth(float) : "Distance to lower cube on trap" : 0
 ]
 
-@SolidClass base(Appearflags, Targetname, Target) = hoqwarts_func_flipendo_cube : "A destination for a flipendo block."
+@SolidClass base(Appearflags, Targetname) = hoqwarts_func_flipendo_cube : "A destination for a flipendo block."
 [
 	initial_dest(target_destination): "Initial destination of the cube."
 	t_width(float): "Size of the cube. The cube must always be a square" : 64
@@ -2905,6 +2909,7 @@ sounds(choices) : "Sound style" : 0 =
 	[
 		1 : "Rotate around X (default Y)": 0
 	]
+	delay(float) : "Delay before triggering the effect"
 ]
 
 @PointClass
