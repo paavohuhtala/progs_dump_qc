@@ -176,6 +176,7 @@ void() W_Precache =
 
 	// dumptruck_ds mobot.qc END
 
+	precache_sound("spell/spell_build_nl2.wav");
 	precache_sound("spell/s_spell_hit1.wav");
 };
 
@@ -442,8 +443,6 @@ void() W_FireHoqwartsWand =
 	vector src = self.origin + v_forward * 10;
 	src_z = self.absmin_z + self.size_z * 0.7;
 
-	ClearMultiDamage();
-
 	traceline(src, src + dir*2048, FALSE, self);
 
 	if (trace_ent.flipendo) {
@@ -453,7 +452,7 @@ void() W_FireHoqwartsWand =
 		self = old_self;
 
 		if (result == FlipendoResult::Success) {
-			particle(trace_endpos, '1 1 1', 192, 16);
+			particle(trace_endpos, trace_plane_normal, 192, 16);
 			te_lightning2(self, src, trace_endpos);
 		}
 		else {
@@ -1180,7 +1179,7 @@ void() W_SetCurrentAmmo =
 	else if (self.weapon == IT_HOQWARTS_WAND)
 	{
 		self.currentammo = 1;
-		self.weaponmodel = "progs/v_axe.mdl";
+		self.weaponmodel = "progs/v_wand.mdl";
 		self.weaponframe = 0;
 		self.items = self.items | IT_HOQWARTS_WAND;
 	}
@@ -1283,6 +1282,7 @@ W_Attack
 An attack impulse can be triggered now
 ============
 */
+void()	player_wand1;
 void()	player_axe1;
 void()	player_axeb1;
 void()	player_axec1;
@@ -1317,8 +1317,8 @@ void() W_Attack =
 		self.attack_finished = time + 0.5;
 	}
 	else if (self.weapon == IT_HOQWARTS_WAND) {
-		player_shot1();
-		W_FireHoqwartsWand();
+		player_wand1();
+		sound(self, CHAN_WEAPON, "spell/spell_build_nl2.wav", 0.7, ATTN_NORM);
 		self.attack_finished = time + 0.7;
 	}
 	else if (self.weapon == IT_SHOTGUN)

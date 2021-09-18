@@ -152,6 +152,11 @@ void()	player_axe2 =	[$axatt2, player_axe3	] {self.weaponframe=2;};
 void()	player_axe3 =	[$axatt3, player_axe4	] {self.weaponframe=3;W_FireAxe();};
 void()	player_axe4 =	[$axatt4, player_run	] {self.weaponframe=4;};
 
+void()	player_wand1 =	[$axatt1, player_wand2	] {self.weaponframe=1;};
+void()	player_wand2 =	[$axatt2, player_wand3	] {self.weaponframe=2;};
+void()	player_wand3 =	[$axatt3, player_wand4	] {self.weaponframe=3; W_FireHoqwartsWand();};
+void()	player_wand4 =	[$axatt4, player_run	] {self.weaponframe=4;};
+
 void()	player_axeb1 =	[$axattb1, player_axeb2	] {self.weaponframe=5;};
 void()	player_axeb2 =	[$axattb2, player_axeb3	] {self.weaponframe=6;};
 void()	player_axeb3 =	[$axattb3, player_axeb4	] {self.weaponframe=7;W_FireAxe();};
